@@ -1,0 +1,23 @@
+[
+    {   
+        "id":1,
+        "title": "My First Blog Post",
+        "content": "This is the content of my first blog post.",
+        "category": "Technology",
+        "tags": ["Tech", "Programming"]
+    },
+    {
+        "id":2,
+        "title": "My Second Blog Post",
+        "content": "This is the content of my second blog post.",
+        "category": "Video",
+        "tags": ["Video", "Editing"]
+    },
+    {
+        "id": 3,
+        "title": "My Third Blog Post",
+        "content": "This is the content of my third blog post.",
+        "category": "Car",
+        "tags": ["Automotive", "Hobby"]
+    }
+]
