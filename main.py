@@ -21,10 +21,13 @@ def hello():
 def get_post():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM posts')
-    account = cursor.fetchone()
-    return account
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    
+    return jsonify(rows)
 
-@app.route('/posts', methods=['POST'])
+@app.route('/post', methods=['POST'])
 def create_post():
     data = request.get_json()
 
@@ -47,6 +50,12 @@ def create_post():
         "id": cursor.lastrowid # Tell the user the ID of the new post
     }), 201 # 201 is the HTTP status code for 'Created'
 
+@app.route("/posts/<int:post_id>", methods=["PUT"])
+def update_post(post_id):
+    data = request.get_json()
+    
+
+           
 
 # Flask will always ask for the browser icon, this will ignore it  
 @app.route('/favicon.ico')
