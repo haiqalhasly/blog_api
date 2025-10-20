@@ -19,12 +19,24 @@ def hello():
 
 @app.route("/posts", methods=["GET"])
 def get_post():
+
+    term = request.args.get("term")
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM posts')
-    rows = cursor.fetchall()
-    for row in rows:
-        print(row)
-    
+
+    if term != None:
+        sql = 'SELECT * FROM posts WHERE content = %s OR category = %s OR tags = %s'
+        val = (term, term, term)
+        cursor.execute(sql, val)
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
+    else:
+        cursor.execute('SELECT * FROM posts')
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
+        
     return jsonify(rows)
 
 @app.route("/posts/<int:post_id>", methods=["GET"])
