@@ -27,6 +27,20 @@ def get_post():
     
     return jsonify(rows)
 
+@app.route("/posts/<int:post_id>", methods=["GET"])
+def get_one_post(post_id):
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    sql = 'SELECT * FROM posts WHERE id = %s;'
+    id = (post_id, )
+    cursor.execute(sql, id)
+
+    row = cursor.fetchone()
+    print(row)
+    
+    return jsonify(row)
+
+
 @app.route('/post', methods=['POST'])
 def create_post():
     data = request.get_json()
@@ -53,9 +67,37 @@ def create_post():
 @app.route("/posts/<int:post_id>", methods=["PUT"])
 def update_post(post_id):
     data = request.get_json()
-    
 
-           
+    id = post_id
+    title = data.get('title')
+    content = data.get('content')
+    category = data.get('category')
+    tags = data.get('tags')
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    sql = "UPDATE posts SET title = %s, content = %s, category = %s, tags = %s WHERE id = %s;"
+    val = (title, content, category, tags, id)
+    cursor.execute(sql, val)
+
+    mysql.connection.commit()
+
+    return '201'
+
+
+@app.route("/posts/<int:post_id>", methods=["DELETE"])
+def delete_post(post_id):
+
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    sql = "DELETE FROM posts WHERE id = %s"
+    id = (post_id,)
+    cursor.execute(sql, id)
+
+    mysql.connection.commit()
+
+    return '204'
 
 # Flask will always ask for the browser icon, this will ignore it  
 @app.route('/favicon.ico')
