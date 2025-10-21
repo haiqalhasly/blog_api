@@ -2,6 +2,9 @@
 
 API for blog platform 
 
+## Project URL
+<https://roadmap.sh/projects/blogging-platform-api>
+
 ## Features
 
 Here's some features that are implemented in this app:
