@@ -2,13 +2,18 @@ from flask import Flask, request, jsonify
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 from MySQLdb import Error as DBError
-import re
+import re, os
 import json, requests
+from dotenv import load_dotenv
+
+
+load_dotenv()
+password = os.environ.get('PASS')
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Haiqal2403.'
+app.config['MYSQL_PASSWORD'] = password
 app.config['MYSQL_DB'] = 'blogs'
 
 
