@@ -161,7 +161,6 @@ def update_post(post_id):
 
 @app.route("/posts/<int:post_id>", methods=["DELETE"])
 def delete_post(post_id):
-
     try:
 
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
